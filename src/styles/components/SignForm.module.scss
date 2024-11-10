@@ -1,0 +1,28 @@
+.form {
+  width: 35vw;
+  height: 70vh;
+  margin: auto;
+
+  &-title {
+    font-size: larger;
+    font-weight: 700;
+    margin: auto;
+  }
+
+  &-input {
+    width: 100%;
+    height: 7.5%;
+    margin: 0.8rem 0px;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+  }
+
+  &-button {
+    width: 100%;
+    height: 7%;
+    margin: 0.8rem 0px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: larger;
+  }
+}

@@ -1,0 +1,9 @@
+.header {
+  display: block;
+  &-contents {
+    display: inline-block;
+    font-size: larger;
+    margin: 1rem;
+    cursor: pointer;
+  }
+}
