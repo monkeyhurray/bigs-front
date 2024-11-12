@@ -1,23 +1,32 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+
 import { useSignMutation } from '@/hooks/useSignMutationHook';
-import { useSignUser } from '@/store/signStore';
+
 import LoginForm from '@/components/Form/LoginForm';
 const LoginPage = () => {
   const { signin } = useSignMutation();
-  const { username, password } = useSignUser();
+
+  const [loginUser, setLoginUser] = useState({
+    username: '',
+    password: '',
+  });
 
   const loginFn = () => {
     signin({
-      username,
-      password,
+      username: loginUser.username,
+      password: loginUser.password,
     });
   };
 
   return (
     <main>
-      <LoginForm signFn={loginFn} selectLabel="로그인" />
+      <LoginForm
+        setLoginUser={setLoginUser}
+        signFn={loginFn}
+        selectLabel="로그인"
+      />
     </main>
   );
 };

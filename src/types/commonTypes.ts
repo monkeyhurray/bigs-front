@@ -1,13 +1,21 @@
-import { SignUserType } from './signUserType';
+import { Dispatch, SetStateAction } from 'react';
+import { SignUpUserType, LogInUserType } from './signUserType';
 import { UseFormRegister, FieldError } from 'react-hook-form';
 
-export interface SignFormType {
+export interface LoginFormType {
   signFn: () => void;
+  setLoginUser: Dispatch<SetStateAction<LogInUserType>>;
+  selectLabel: string;
+}
+
+export interface SignUpFormType {
+  signFn: () => void;
+  setSignUpUser: Dispatch<SetStateAction<SignUpUserType>>;
   selectLabel: string;
 }
 
 export interface InputType {
-  register: UseFormRegister<SignUserType>;
+  register: UseFormRegister<SignUpUserType>;
   username?: string;
   name?: string;
   password?: string;

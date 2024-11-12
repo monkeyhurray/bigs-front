@@ -1,24 +1,32 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSignMutation } from '@/hooks/useSignMutationHook';
-import { useSignUser } from '@/store/signStore';
 import SignUpForm from '@/components/Form/SignUpForm';
 
 const SignUpPage = () => {
   const { signUp } = useSignMutation();
-  const { username, name, password, confirmPassword } = useSignUser();
+  const [signUpUser, setSignUpUser] = useState({
+    username: '',
+    password: '',
+    confirmPassword: '',
+    name: '',
+  });
 
   const signUpFn = () =>
     signUp({
-      username,
-      name,
-      password,
-      confirmPassword,
+      username: signUpUser.username,
+      name: signUpUser.name,
+      password: signUpUser.password,
+      confirmPassword: signUpUser.confirmPassword,
     });
 
   return (
     <>
-      <SignUpForm signFn={signUpFn} selectLabel="회원가입" />
+      <SignUpForm
+        setSignUpUser={setSignUpUser}
+        signFn={signUpFn}
+        selectLabel="회원가입"
+      />
     </>
   );
 };
