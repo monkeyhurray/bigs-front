@@ -1,30 +1,22 @@
-'use client';
 import React from 'react';
 import styles from '@/styles/components/Header.module.scss';
-import { useRouter } from 'next/navigation';
-const Header = () => {
-  const router = useRouter();
+import Link from 'next/link';
 
+const Header = () => {
   return (
     <main className={styles['header']}>
-      <div
-        className={styles['header-contents']}
-        onClick={() => router.push('/')}
-      >
+      <Link href="/" className={styles['header-contents']}>
         메인
-      </div>
-      <div
-        className={styles['header-contents']}
-        onClick={() => router.push('/login')}
-      >
+      </Link>
+      <Link href="/login" className={styles['header-contents']}>
         로그인
-      </div>
-      <div
-        className={styles['header-contents']}
-        onClick={() => router.push('/sign-up')}
-      >
+      </Link>
+      <Link href="/sign-up" className={styles['header-contents']}>
         회원가입
-      </div>
+      </Link>
+      <Link href="/community" className={styles['header-contents']}>
+        커뮤니티
+      </Link>
     </main>
   );
 };

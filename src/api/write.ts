@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const axi = axios.create({
+const intercept = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
   headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
 });
@@ -15,38 +15,37 @@ const refreshAccessToken = async () => {
   localStorage.setItem('refreshToken', response.data.refreshToken);
 };
 
-axi.interceptors.response.use(
+intercept.interceptors.response.use(
   async (res) => {
     return res;
   },
-  async (err) => {
-    if (err.response.request.status === 401) {
+  async (error) => {
+    if (error.response.request.status === 401) {
       try {
         await refreshAccessToken();
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.error(error);
       }
     }
   }
 );
 
-axi.interceptors.request.use(
+intercept.interceptors.request.use(
   async (res) => {
     return res;
   },
-  async (err) => {
-    console.log(err);
+  async (error) => {
+    console.error(error);
   }
 );
 
-const write = async (content: {
+const postCreateWrite = async (content: {
   title: string;
   content: string;
   category: string;
   file: File | null;
 }) => {
-  console.log(content);
-  await axi.post('/boards', {
+  await intercept.post('/boards', {
     request: {
       title: content.title,
       content: content.content,
@@ -56,7 +55,7 @@ const write = async (content: {
   });
 };
 
-const wirteAudit = async (
+const patchAuditwirte = async (
   id: number,
   content: {
     title: string;
@@ -64,22 +63,24 @@ const wirteAudit = async (
     category: string;
   }
 ) => {
-  await axi.patch(`/boards/${id}`, content);
+  await intercept.patch(`/boards/${id}`, content);
 };
 
-const writeDelete = async (id: number) => {
-  await axi.delete(`/boards/${id}`);
+const deletePost = async (id: number) => {
+  await intercept.delete(`/boards/${id}`);
 };
 
-const articleCheck = async () => {
-  const { data } = await axi.get(`/boards`);
+const getArticleById = async (id: number) => {
+  const { data } = await intercept.get(`/boards${id}`);
 
   return data;
 };
 
-const articleListCheck = async () => {
+const getArticleList = async ({ page = 1, size = 10 }) => {
   try {
-    const { data } = await axi.get(`/boards?page=1&size=1`);
+    const { data } = await intercept.get(
+      `/boards?page=${page - 1}&size=${size}`
+    );
 
     return data;
   } catch (error) {
@@ -88,16 +89,16 @@ const articleListCheck = async () => {
 };
 
 const communityCategory = async () => {
-  const { data } = await axi.get(`/boards/categories`);
+  const { data } = await intercept.get(`/boards/categories`);
 
   return data;
 };
 
 export {
-  write,
-  wirteAudit,
-  writeDelete,
-  articleCheck,
-  articleListCheck,
+  postCreateWrite,
+  patchAuditwirte,
+  deletePost,
+  getArticleById,
+  getArticleList,
   communityCategory,
 };

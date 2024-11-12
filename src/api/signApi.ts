@@ -1,6 +1,9 @@
 import axios from 'axios';
 
-const signIn = async (loginUser: { username: string; password: string }) => {
+const postSignIn = async (loginUser: {
+  username: string;
+  password: string;
+}) => {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signin`,
@@ -12,11 +15,10 @@ const signIn = async (loginUser: { username: string; password: string }) => {
     console.log('로그인 성공');
   } catch (error) {
     console.error(error);
-    console.log(error);
   }
 };
 
-const signUp = async (signUpUser: {
+const postSignUp = async (signUpUser: {
   username: string;
   name: string;
   password: string;
@@ -32,4 +34,4 @@ const signUp = async (signUpUser: {
   }
 };
 
-export { signIn, signUp };
+export { postSignIn, postSignUp };

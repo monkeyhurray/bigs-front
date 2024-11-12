@@ -1,9 +1,12 @@
 .header {
   display: block;
+
   &-contents {
     display: inline-block;
     font-size: larger;
     margin: 1rem;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
     cursor: pointer;
   }
 }

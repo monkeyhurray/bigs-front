@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,7 +10,7 @@ import { useSignUser } from '@/store/signStore';
 import type { SignFormType } from '@/types/commonTypes';
 import type { SignUserType } from '@/types/signUserType';
 
-const Sign = ({ signFn, selectLabel }: SignFormType) => {
+const SignUpForm = ({ signFn, selectLabel }: SignFormType) => {
   const { setSignUserData } = useSignUser();
 
   const {
@@ -42,15 +40,14 @@ const Sign = ({ signFn, selectLabel }: SignFormType) => {
           placeholder="이메일 입력"
           errors={errors.username}
         />
-        {selectLabel === '회원가입' && (
-          <SignInput
-            register={register}
-            name="name"
-            type="text"
-            placeholder="이름 입력"
-            errors={errors.name}
-          />
-        )}
+
+        <SignInput
+          register={register}
+          name="name"
+          type="text"
+          placeholder="이름 입력"
+          errors={errors.name}
+        />
 
         <SignInput
           register={register}
@@ -59,19 +56,19 @@ const Sign = ({ signFn, selectLabel }: SignFormType) => {
           placeholder="비밀번호 입력"
           errors={errors.password}
         />
-        {selectLabel === '회원가입' && (
-          <SignInput
-            register={register}
-            confirmPassword="confirmPassword"
-            type="password"
-            placeholder="비밀번호 확인"
-            errors={errors.confirmPassword}
-          />
-        )}
+
+        <SignInput
+          register={register}
+          confirmPassword="confirmPassword"
+          type="password"
+          placeholder="비밀번호 확인"
+          errors={errors.confirmPassword}
+        />
+
         <Button label={selectLabel} />
       </form>
     </>
   );
 };
 
-export default Sign;
+export default SignUpForm;

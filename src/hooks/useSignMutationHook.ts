@@ -1,18 +1,28 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { signIn, signUp } from '@/api/signApi';
+import { postSignIn, postSignUp } from '@/api/signApi';
 
-export const useSign = () => {
+export const useSignMutation = () => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
-  const { mutate: login } = useMutation({
-    mutationFn: signIn,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['login'] }),
+  const { mutate: signin } = useMutation({
+    mutationFn: postSignIn,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['login'] });
+      router.push('/');
+    },
   });
 
-  const { mutate: join } = useMutation({
-    mutationFn: signUp,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['join'] }),
+  const { mutate: signUp } = useMutation({
+    mutationFn: postSignUp,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['join'] });
+      router.push('/login');
+    },
   });
 
-  return { login, join };
+  return { signin, signUp };
 };

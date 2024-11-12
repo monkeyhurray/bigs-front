@@ -1,11 +1,11 @@
 import { useQueryClient, useMutation } from '@tanstack/react-query';
-import { write } from '@/api/write';
+import { postCreateWrite } from '@/api/write';
 
-export const useContentMutation = () => {
+export const useCreateContentMutation = () => {
   const queryClient = useQueryClient();
 
   const { mutate: createContent } = useMutation({
-    mutationFn: write,
+    mutationFn: postCreateWrite,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['write'] }),
     retry: 1,
   });

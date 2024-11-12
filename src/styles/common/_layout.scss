@@ -1,9 +1,9 @@
 .main {
   box-sizing: border-box;
-  min-width: 1500px;
+
   margin: 60px auto;
 
-  @media screen {
-    min-width: 670px;
-  }
+  // @media screen {
+  //   min-width: 670px;
+  // }
 }

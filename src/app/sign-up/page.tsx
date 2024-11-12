@@ -1,16 +1,15 @@
 'use client';
 import React from 'react';
-import Sign from '@/components/Sign';
-
-import { useSign } from '@/hooks/useSignMutationHook';
+import { useSignMutation } from '@/hooks/useSignMutationHook';
 import { useSignUser } from '@/store/signStore';
+import SignUpForm from '@/components/Form/SignUpForm';
 
 const SignUpPage = () => {
-  const { join } = useSign();
+  const { signUp } = useSignMutation();
   const { username, name, password, confirmPassword } = useSignUser();
 
   const signUpFn = () =>
-    join({
+    signUp({
       username,
       name,
       password,
@@ -19,7 +18,7 @@ const SignUpPage = () => {
 
   return (
     <>
-      <Sign signFn={signUpFn} selectLabel="회원가입" />
+      <SignUpForm signFn={signUpFn} selectLabel="회원가입" />
     </>
   );
 };
