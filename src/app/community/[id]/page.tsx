@@ -1,9 +1,10 @@
-import React from 'react';
+'use client';
+import React, { use } from 'react';
 
 import { useGetDetailArticle } from '@/hooks/useGetArticleQueryHook';
 
-const CommunityViewPage = ({ params }: { params: { id: number } }) => {
-  const { id } = params;
+const CommunityViewPage = ({ params }: { params: Promise<{ id: number }> }) => {
+  const { id } = use(params);
   const { articleDetail, isLoading, isError } = useGetDetailArticle(id);
 
   if (isLoading) {
