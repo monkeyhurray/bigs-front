@@ -1,0 +1,146 @@
+.community {
+  width: 70vw;
+  height: 50vh;
+  margin: auto;
+  align-items: center;
+
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    @media (max-width: 640px) {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+    }
+
+    &-input {
+      width: 30%;
+      height: 7.5%;
+      margin: 0.8rem 0px;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+
+      @media (max-width: 640px) {
+        width: 100%;
+      }
+    }
+
+    &-file {
+      display: none;
+
+      &-upload {
+        height: 7.5%;
+        cursor: pointer;
+        padding: 0.5rem 1rem;
+        margin: 0.8rem 0px;
+        border: solid 2px;
+        border-radius: 8px;
+        @media (max-width: 640px) {
+          display: flex;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+        }
+      }
+    }
+
+    &-dropdown {
+      cursor: pointer;
+      position: relative;
+      width: 10%;
+      height: 35px;
+
+      @media (max-width: 640px) {
+        width: 100%;
+        font-size: large;
+      }
+
+      &-btn {
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+      }
+      &-menus {
+        display: inline-block;
+        border: solid 2px;
+        border-radius: 8px;
+        margin: 1rem 0px;
+        background-color: #ccc;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        text-align: center;
+        margin-bottom: 20px;
+        z-index: 2;
+        &-menu {
+          display: inline-block;
+          margin: 1rem 1px;
+        }
+      }
+    }
+
+    &-button {
+      width: 10%;
+      height: 7.5%;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: larger;
+      @media (max-width: 640px) {
+        width: 100%;
+      }
+    }
+  }
+
+  &-board {
+    width: 100%;
+
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed;
+    &-colgroup {
+      &-first {
+        width: 30px;
+        @media (max-width: 480px) {
+          display: none;
+        }
+      }
+      &-second {
+        width: 100px;
+      }
+    }
+    tr {
+      transition: all 0.2s;
+      border: 1px solid #ccc;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+      }
+    }
+    &-disable {
+      @media (max-width: 480px) {
+        display: none;
+      }
+    }
+
+    &-link {
+      color: black;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    th {
+      background-color: #efefef;
+      padding: 10px;
+    }
+
+    td {
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+}

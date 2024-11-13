@@ -11,8 +11,6 @@ const postSignIn = async (loginUser: {
     );
     localStorage.setItem('accessToken', response.data.accessToken);
     localStorage.setItem('refreshToken', response.data.refreshToken);
-
-    console.log('로그인 성공');
   } catch (error) {
     console.error(error);
   }

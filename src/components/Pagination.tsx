@@ -1,6 +1,7 @@
 import React from 'react';
 
-const Pagination = ({ contents }: { contents: number }) => {
+const Pagination = () => {
+  const contents = 12;
   const pages = Math.ceil(contents / 10);
   return (
     <div>

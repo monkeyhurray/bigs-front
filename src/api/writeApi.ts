@@ -1,9 +1,19 @@
 import axios from 'axios';
+import { ContentType } from '@/types/contentType';
 
 const intercept = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-  headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+
+  // headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
 });
+
+if (typeof window !== 'undefined') {
+  const accessToken = localStorage.getItem('accessToken');
+
+  if (accessToken) {
+    intercept.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+  }
+}
 
 const refreshAccessToken = async () => {
   const response = await axios.post(
@@ -39,34 +49,31 @@ intercept.interceptors.request.use(
   }
 );
 
-const postCreateWrite = async (content: {
+const postCreateWrite = async (content: ContentType) => {
+  try {
+    await intercept.post('/boards', {
+      request: {
+        title: content.title,
+        content: content.content,
+        category: content.category,
+      },
+      file: content.file,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const patchAuditwirte = async (payload: {
+  id: number;
   title: string;
   content: string;
   category: string;
-  file: File | null;
 }) => {
-  await intercept.post('/boards', {
-    request: {
-      title: content.title,
-      content: content.content,
-      category: content.category,
-    },
-    file: content.file,
-  });
+  await intercept.patch(`/boards/${payload.id}`, { content: payload.content });
 };
 
-const patchAuditwirte = async (
-  id: number,
-  content: {
-    title: string;
-    content: string;
-    category: string;
-  }
-) => {
-  await intercept.patch(`/boards/${id}`, content);
-};
-
-const deletePost = async (id: number) => {
+const deletePost = async ({ id }: { id: number }) => {
   await intercept.delete(`/boards/${id}`);
 };
 
@@ -88,7 +95,7 @@ const getArticleList = async ({ page = 1, size = 10 }) => {
   }
 };
 
-const communityCategory = async () => {
+const getCommunityCategory = async () => {
   const { data } = await intercept.get(`/boards/categories`);
 
   return data;
@@ -100,5 +107,5 @@ export {
   deletePost,
   getArticleById,
   getArticleList,
-  communityCategory,
+  getCommunityCategory,
 };
