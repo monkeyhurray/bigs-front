@@ -1,0 +1,20 @@
+.pagination {
+  display: flex;
+
+  &-pages {
+    margin: auto;
+    display: flex;
+    gap: 1rem;
+
+    &-page {
+      color: rgb(0, 0, 0);
+      text-decoration: none;
+
+      &-diable {
+        color: rgb(0, 0, 0);
+        text-decoration: none;
+        pointer-events: none;
+      }
+    }
+  }
+}

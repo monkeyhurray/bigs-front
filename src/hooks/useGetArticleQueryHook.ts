@@ -5,13 +5,19 @@ import {
   getCommunityCategory,
 } from '@/api/writeApi';
 
-export const useGetArticleList = () => {
+export const useGetArticleList = ({
+  page,
+  size,
+}: {
+  page: number;
+  size: number;
+}) => {
   const {
     data: articleList,
     isLoading,
     isError,
   } = useQuery({
-    queryFn: () => getArticleList({ page: 1, size: 10 }),
+    queryFn: () => getArticleList({ page, size }),
     queryKey: ['write'],
     retry: 1,
   });

@@ -38,9 +38,11 @@
         margin: 0.8rem 0px;
         border: solid 2px;
         border-radius: 8px;
+
         @media (max-width: 640px) {
           display: flex;
           display: flex;
+
           justify-content: center;
           width: 100%;
         }

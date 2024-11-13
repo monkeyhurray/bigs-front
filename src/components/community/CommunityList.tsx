@@ -2,28 +2,19 @@
 
 import React from 'react';
 import styles from '@/styles/pages/community/community.module.scss';
-import { useGetArticleList } from '@/hooks/useGetArticleQueryHook';
+
 import Link from 'next/link';
 
 interface ContentType {
   id: number;
   title: string;
   content: string;
+  category: string;
+  file: File | null;
 }
-const CommunityList = () => {
-  const { articleList, isLoading, isError } = useGetArticleList();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>로그인을 다시 시도해 주세요.</div>;
-  }
-
+const CommunityList = ({ content }: { content: ContentType[] }) => {
   return (
     <div className={styles['community']}>
-      {articleList.content}
       <table className={styles['community-board']}>
         <colgroup>
           <col className={styles['community-board-colgroup-first']} />
@@ -54,7 +45,7 @@ const CommunityList = () => {
 
             <td>보리굴비입니다.</td>
           </tr>
-          {articleList.content.map((item: ContentType) => {
+          {content.map((item: ContentType) => {
             return (
               <tr key={item.id}>
                 <td>
