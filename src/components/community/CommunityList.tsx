@@ -29,22 +29,6 @@ const CommunityList = ({ content }: { content: ContentType[] }) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className={styles['community-board-disable']}>
-              <h2>1</h2>
-            </td>
-
-            <td>
-              <Link
-                className={styles['community-board-link']}
-                href={`/community/4`}
-              >
-                굴비{' '}
-              </Link>
-            </td>
-
-            <td>보리굴비입니다.</td>
-          </tr>
           {content.map((item: ContentType) => {
             return (
               <tr key={item.id}>

@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>홈</div>;
+  return <div style={{ textAlign: 'center', fontSize: 'large' }}>홈</div>;
 }
