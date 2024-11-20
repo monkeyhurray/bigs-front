@@ -3,17 +3,7 @@ import { ContentType } from '@/types/contentType';
 
 const intercept = axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
-
-  // headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
 });
-
-if (typeof window !== 'undefined') {
-  const accessToken = localStorage.getItem('accessToken');
-
-  if (accessToken) {
-    intercept.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
-  }
-}
 
 const refreshAccessToken = async () => {
   const response = await axios.post(
@@ -30,7 +20,8 @@ intercept.interceptors.response.use(
     return res;
   },
   async (error) => {
-    if (error.response.request.status === 401) {
+    console.log(error);
+    if (error.response.status === 401) {
       try {
         await refreshAccessToken();
       } catch (error) {
@@ -41,10 +32,16 @@ intercept.interceptors.response.use(
 );
 
 intercept.interceptors.request.use(
-  async (res) => {
-    return res;
+  (req) => {
+    if (typeof window !== 'undefined') {
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken) {
+        req.headers['Authorization'] = `Bearer ${accessToken}`;
+      }
+    }
+    return req;
   },
-  async (error) => {
+  (error) => {
     console.error(error);
   }
 );

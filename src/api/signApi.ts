@@ -1,9 +1,18 @@
 import axios from 'axios';
 
-const postSignIn = async (loginUser: {
+interface SignInUserType {
   username: string;
   password: string;
-}) => {
+}
+
+interface SignUpUserType {
+  username: string;
+  name: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const postSignIn = async (loginUser: SignInUserType) => {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signin`,
@@ -16,12 +25,7 @@ const postSignIn = async (loginUser: {
   }
 };
 
-const postSignUp = async (signUpUser: {
-  username: string;
-  name: string;
-  password: string;
-  confirmPassword: string;
-}) => {
+const postSignUp = async (signUpUser: SignUpUserType) => {
   try {
     await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signup`,
